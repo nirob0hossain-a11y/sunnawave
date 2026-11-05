@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout — Sunnah Wave</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#2c5e3b">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,50;1,9..144,300..700,50&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body data-page="checkout">
+  <div id="site-header"></div>
+
+  <main>
+    <section class="page-hero" id="co-hero" style="padding-bottom:1.6rem">
+      <div class="container">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/shop">Shop</a><span>/</span><span>Checkout</span></nav>
+        <h1>Checkout</h1>
+        <div class="bn">চেকআউট</div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div id="co-empty" class="hidden"></div>
+
+      <div class="checkout" id="co-wrap">
+        <form name="order" id="order-form" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="order">
+          <input type="hidden" name="subject" value="New Sunnah Wave order %{submissionId}">
+          <p class="hidden"><label>Leave this empty: <input name="bot-field"></label></p>
+
+          <div class="co-card">
+            <h2><span class="step">1</span> Delivery details</h2>
+            <div class="field-grid">
+              <div class="field">
+                <label for="f-name">Full name</label>
+                <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="e.g. Abdullah Al Mamun">
+                <span class="err">Please enter your name.</span>
+              </div>
+              <div class="field">
+                <label for="f-phone">Mobile number</label>
+                <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="01XXXXXXXXX">
+                <span class="err">Enter a valid Bangladeshi mobile number (01XXXXXXXXX).</span>
+              </div>
+              <div class="field full">
+                <label for="f-email">Email <span class="opt">(optional, for order updates)</span></label>
+                <input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+                <span class="err">That email doesn’t look right.</span>
+              </div>
+              <div class="field">
+                <label for="f-area">Delivery area</label>
+                <select id="f-area" name="area" required>
+                  <option value="inside">Inside Dhaka City — ৳70</option>
+                  <option value="outside">Outside Dhaka — ৳130</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-city">District / Thana</label>
+                <input id="f-city" name="city" type="text" autocomplete="address-level2" required placeholder="e.g. Mirpur, Dhaka">
+                <span class="err">Please enter your district or thana.</span>
+              </div>
+              <div class="field full">
+                <label for="f-address">Full address</label>
+                <textarea id="f-address" name="address" autocomplete="street-address" required placeholder="House, road, area, landmark"></textarea>
+                <span class="err">Please enter your delivery address.</span>
+              </div>
+              <div class="field full">
+                <label for="f-notes">Order note <span class="opt">(optional)</span></label>
+                <input id="f-notes" name="notes" type="text" placeholder="e.g. Please call before delivery">
+              </div>
+            </div>
+          </div>
+
+          <div class="co-card">
+            <h2><span class="step">2</span> Payment method</h2>
+            <div class="pay-options">
+              <div class="pay-opt">
+                <input type="radio" name="payment" id="pay-cod" value="Cash on Delivery" checked>
+                <label for="pay-cod"><span class="radio"></span><span class="po-text"><b>Cash on Delivery</b><span>Pay the rider in cash when your parcel arrives</span></span><span class="wallet-mark cod"><svg class="icon" style="width:28px;height:28px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.8"/><path d="M6 9.5v5M18 9.5v5"/></svg></span></label>
+              </div>
+              <div class="pay-opt">
+                <input type="radio" name="payment" id="pay-bkash" value="bKash">
+                <label for="pay-bkash"><span class="radio"></span><span class="po-text"><b>bKash</b><span>Send money from your bKash wallet</span></span><span class="wallet-mark bkash">bKash</span></label>
+              </div>
+              <div class="pay-opt">
+                <input type="radio" name="payment" id="pay-nagad" value="Nagad">
+                <label for="pay-nagad"><span class="radio"></span><span class="po-text"><b>Nagad</b><span>Send money from your Nagad wallet</span></span><span class="wallet-mark nagad">Nagad</span></label>
+              </div>
+
+              <div class="wallet-panel" id="wallet-panel">
+                <ol>
+                  <li>Open your <b class="w-name">bKash</b> app and choose <b>Send Money</b>.</li>
+                  <li>Send <b class="w-amount">৳0</b> to our merchant number <span class="merchant"><span class="w-number"></span> <button type="button" class="copy-btn" id="copy-num">Copy</button></span></li>
+                  <li>Enter the number you paid from and the Transaction ID (TrxID) below.</li>
+                </ol>
+                <div class="field-grid">
+                  <div class="field">
+                    <label for="f-wallet">Your <span class="w-name">bKash</span> number</label>
+                    <input id="f-wallet" name="wallet-number" type="tel" inputmode="tel" placeholder="01XXXXXXXXX">
+                    <span class="err">Enter the 11-digit number you paid from.</span>
+                  </div>
+                  <div class="field">
+                    <label for="f-trx">Transaction ID</label>
+                    <input id="f-trx" name="transaction-id" type="text" placeholder="e.g. 9KD7X2LQ1A" style="text-transform:uppercase">
+                    <span class="err">Enter the TrxID from your payment SMS.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- filled in by checkout.js just before submission -->
+          <input type="hidden" name="order-id">
+          <textarea class="hidden" name="items" aria-hidden="true" tabindex="-1"></textarea>
+          <input type="hidden" name="subtotal">
+          <input type="hidden" name="discount">
+          <input type="hidden" name="delivery">
+          <input type="hidden" name="total">
+          <input type="hidden" name="coupon">
+        </form>
+
+        <aside class="summary">
+          <div class="co-card">
+            <h2>Order summary</h2>
+            <div class="summary-items" id="sum-items"></div>
+            <div class="coupon">
+              <label class="sr-only" for="coupon">Coupon code</label>
+              <input id="coupon" type="text" placeholder="Coupon code (try SUNNAH10)" autocomplete="off">
+              <button type="button" class="btn btn-ghost btn-sm" id="apply-coupon">Apply</button>
+            </div>
+            <p class="coupon-msg hidden" id="coupon-msg"></p>
+            <div class="totals" id="sum-totals"></div>
+            <button type="submit" form="order-form" class="btn btn-block" id="place-btn">Place order</button>
+            <p class="secure-note"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> We’ll call to confirm your order before dispatch.</p>
+          </div>
+        </aside>
+      </div>
+
+      <div id="co-success" class="hidden"></div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="/js/products.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/checkout.js"></script>
+</body>
+</html>
